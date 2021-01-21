@@ -77,8 +77,8 @@ services:
       - PG_DB_USER=${PG_DB_USER} # пользователь PostgreSQL
       - PG_DB_PASSWORD=${PG_DB_PASSWORD}  # пароль PostgreSQL
       - PG_DB_HOST=${PG_DB_HOST} # адрес PostgreSQL
-      - PG_DB_PORT=5432 # порт PostgreSQL (default: 5432)
-      - GETTING_SCHEDULE_TIME_HOURS=1 # время задержки (в часах) между обращениями к PostgreSQL для получения расписания (default: 1)
+      - PG_DB_PORT=${PG_DB_PORT} # порт PostgreSQL (default: 5432)
+      - GETTING_SCHEDULE_TIME_HOURS=${GETTING_SCHEDULE_TIME_HOURS} # время задержки (в часах) между обращениями к PostgreSQL для получения расписания (default: 1)
 
 
 # НЕ ИСПОЛЬЗУЕТСЯ ЕСЛИ ЕСТЬ ВОЗМОЖНОСТЬ ПОЛУЧАТЬ ДАННЫЕ НАПРЯМУЮ ИЗ БАЗЫ
