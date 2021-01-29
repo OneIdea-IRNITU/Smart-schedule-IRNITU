@@ -35,8 +35,10 @@ def make_keyboard_start_menu():
     keyboard.row()
     keyboard.add(Text(label="Расписание на завтра 🍎"), color=KeyboardButtonColor.SECONDARY)
     keyboard.row()
-    keyboard.add(Text(label="Поиск 🔎"), color=KeyboardButtonColor.PRIMARY)
-    keyboard.add(Text(label="Другое ⚡"), color=KeyboardButtonColor.PRIMARY)
+    # keyboard.add(Text(label="Поиск 🔎"), color=KeyboardButtonColor.PRIMARY)
+    # keyboard.add(Text(label="Другое ⚡"), color=KeyboardButtonColor.PRIMARY)
+    keyboard.add(Text(label="Напоминание 📣"), color=KeyboardButtonColor.PRIMARY)
+    keyboard.add(Text(label="Список команд"), color=KeyboardButtonColor.PRIMARY)
     return keyboard
 
 
@@ -103,8 +105,8 @@ def make_keyboard_institutes(institutes=[]):
     }
     list_keyboard = []
     list_keyboard_main = []
-    list_keyboard.append(parametres_for_buttons_start_menu_vk('Преподаватель', 'primary'))
-    list_keyboard_main.append(list_keyboard)
+    # list_keyboard.append(parametres_for_buttons_start_menu_vk('Преподаватель', 'primary'))
+    # list_keyboard_main.append(list_keyboard)
     for institute in institutes:
         if len(institute['name']) >= MAX_CALLBACK_RANGE:
             name = sep_space(institute['name']) + ' ...'
