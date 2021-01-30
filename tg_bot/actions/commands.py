@@ -7,7 +7,7 @@ def start(bot, message, storage, tz):
 
     # Проверяем есть пользователь в базе данных
     if storage.get_user(chat_id):
-        storage.delete_user_or_userdata(chat_id)  # Удаляем пользвателя из базы данных
+        storage.delete_tg_user_or_userdata(chat_id)  # Удаляем пользвателя из базы данных
 
     bot.send_message(chat_id=chat_id, text='Привет!\n')
     bot.send_message(chat_id=chat_id, text='Для начала пройдите небольшую регистрацию😉\n'
@@ -20,7 +20,7 @@ def start(bot, message, storage, tz):
 def registration(bot, message, storage, tz):
     """Команда бота Регистрация"""
     chat_id = message.chat.id
-    storage.delete_user_or_userdata(chat_id=chat_id)
+    storage.delete_tg_user_or_userdata(chat_id=chat_id)
     bot.send_message(chat_id=chat_id, text='Пройдите повторную регистрацию😉\n'
                                            'Выберите институт',
                      reply_markup=keyboards.make_inline_keyboard_choose_institute(storage.get_institutes()))

@@ -13,8 +13,8 @@ def start_student_reg(bot, message, storage):
         data = json.loads(data)
         courses = storage.get_courses(data['institute'])
 
-        storage.save_or_update_user(chat_id=chat_id,
-                                    institute=data['institute'])  # Записываем в базу институт пользователя
+        storage.save_or_update_tg_user(chat_id=chat_id,
+                                       institute=data['institute'])  # Записываем в базу институт пользователя
         try:
             # Выводим сообщение со списком курсов
             bot.edit_message_text(message_id=message_id, chat_id=chat_id, text=f'Выберите курс',
@@ -29,7 +29,7 @@ def start_student_reg(bot, message, storage):
 
         # Если нажали кнопку назад
         if data['course'] == 'back':
-            storage.delete_user_or_userdata(
+            storage.delete_tg_user_or_userdata(
                 chat_id=chat_id)  # Удаляем информацию об институте пользователя из базы данных
             try:
                 bot.edit_message_text(message_id=message_id, chat_id=chat_id,
@@ -41,7 +41,7 @@ def start_student_reg(bot, message, storage):
                 logger.exception(e)
                 return
 
-        storage.save_or_update_user(chat_id=chat_id, course=data['course'])  # Записываем в базу курс пользователя
+        storage.save_or_update_tg_user(chat_id=chat_id, course=data['course'])  # Записываем в базу курс пользователя
         user = storage.get_user(chat_id=chat_id)
 
         try:
@@ -63,8 +63,8 @@ def start_student_reg(bot, message, storage):
         # Если нажали кнопку назад
         if data['group'] == 'back':
             # Удаляем информацию о курсе пользователя из базы данных
-            storage.delete_user_or_userdata(chat_id=chat_id,
-                                            delete_only_course=True)
+            storage.delete_tg_user_or_userdata(chat_id=chat_id,
+                                               delete_only_course=True)
             try:
                 institute = storage.get_user(chat_id=chat_id)['institute']
             except Exception as e:
@@ -81,7 +81,7 @@ def start_student_reg(bot, message, storage):
                 logger.exception(e)
                 return
 
-        storage.save_or_update_user(chat_id=chat_id, group=data['group'])  # Записываем в базу группу пользователя
+        storage.save_or_update_tg_user(chat_id=chat_id, group=data['group'])  # Записываем в базу группу пользователя
 
         try:
             # Удаляем меню регистрации

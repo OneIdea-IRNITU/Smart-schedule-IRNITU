@@ -54,7 +54,7 @@ class MongodbService(object):
         """возвращает список групп на определённом курсе в определеннои институте"""
         return list(self._db.groups.find(filter={'institute': {'$regex': f'{institute}*'}, 'course': course}))
 
-    def save_or_update_user(self, chat_id: int, institute='', course='', group='', notifications=0, reminders=[]):
+    def save_or_update_tg_user(self, chat_id: int, institute='', course='', group='', notifications=0, reminders=[]):
         """сохраняет или изменяет данные пользователя (коллекция users)"""
         update = {'chat_id': chat_id, 'notifications': 0, 'reminders': {}}
         if institute:
@@ -73,7 +73,7 @@ class MongodbService(object):
     def get_user(self, chat_id: int):
         return self._db.users.find_one(filter={'chat_id': chat_id})
 
-    def delete_user_or_userdata(self, chat_id: int, delete_only_course: bool = False):
+    def delete_tg_user_or_userdata(self, chat_id: int, delete_only_course: bool = False):
         """удаление пользователя или курса пользователя из базы данных"""
         if delete_only_course:
             return self._db.users.update_one(filter={'chat_id': chat_id}, update={'$unset': {'course': ''}},

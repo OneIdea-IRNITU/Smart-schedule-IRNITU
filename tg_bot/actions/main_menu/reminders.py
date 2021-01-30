@@ -83,7 +83,7 @@ def reminder_settings(bot, message, storage, tz):
             reminders = calculating_reminder_times(schedule=schedule, time=int(time))
         else:
             reminders = []
-        storage.save_or_update_user(chat_id=chat_id, notifications=time, reminders=reminders)
+        storage.save_or_update_tg_user(chat_id=chat_id, notifications=time, reminders=reminders)
 
         try:
             bot.edit_message_text(message_id=message_id, chat_id=chat_id, text=get_notifications_status(time),
