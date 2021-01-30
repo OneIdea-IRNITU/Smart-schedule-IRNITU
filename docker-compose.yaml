@@ -5,7 +5,7 @@ volumes:
 
 services:
   tg_bot:
-    build: tg_bot/
+    build: bots/tg_bot/
     restart: always
     container_name: tg_bot
     environment:
@@ -17,7 +17,7 @@ services:
 
 
   vk_bot:
-    build: vk_bot/
+    build: bots/vk_bot/
     restart: always
     container_name: vk_bot
     environment:

@@ -1,10 +1,10 @@
 from vkbottle.bot import Message
 
-from functions.creating_schedule import full_schedule_in_str, full_schedule_in_str_prep, \
+from functions import full_schedule_in_str, full_schedule_in_str_prep, \
     get_one_day_schedule_in_str_prep, get_one_day_schedule_in_str, get_next_day_schedule_in_str, \
     get_next_day_schedule_in_str_prep
-from functions.find_week import find_week
-from functions.near_lesson import get_near_lesson, get_now_lesson
+from functions import find_week
+from functions import get_near_lesson, get_now_lesson
 from tools import keyboards, statistics, schedule_processing
 
 from datetime import datetime

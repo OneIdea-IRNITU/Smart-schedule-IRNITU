@@ -1,7 +1,7 @@
 from vkbottle.bot import Message
 
 from tools import keyboards, statistics
-from functions.notifications import calculating_reminder_times, get_notifications_status
+from functions import calculating_reminder_times, get_notifications_status
 
 
 async def reminder_settings(ans: Message, storage, tz):

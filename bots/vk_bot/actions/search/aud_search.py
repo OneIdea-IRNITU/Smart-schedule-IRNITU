@@ -1,7 +1,7 @@
 from vkbottle.bot import Bot, Message
 
-from functions.creating_schedule import full_schedule_in_str_prep
-from functions.find_week import find_week
+from functions import full_schedule_in_str_prep
+from functions import find_week
 
 from tools import keyboards, schedule_processing
 

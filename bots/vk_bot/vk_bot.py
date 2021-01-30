@@ -1,12 +1,12 @@
 from vkbottle.bot import Bot, Message
 
-from functions.storage import MongodbService
+from functions import MongodbService
 
-from tools.state import SuperStates
+from tools import SuperStates
 from tools import statistics
 
 from actions.registration import teacher_registration, student_registration
-from actions.search import prep_and_group_search, aud_search
+from actions import prep_and_group_search, aud_search
 from actions import commands
 from actions.main_menu import reminders, main_menu, schedule
 
