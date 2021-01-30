@@ -20,4 +20,4 @@ EXPOSE 8080
 
 RUN chmod a+x ./run.sh
 
-CMD ["./run.sh"]
+CMD ["python3", "tg_bot.py"]
