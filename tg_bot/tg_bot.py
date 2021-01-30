@@ -1,20 +1,17 @@
-import telebot
-
-import pytz
-
 import os
 from time import sleep
+
+import pytz
+import telebot
+from flask import Flask, request
 
 from actions import commands
 from actions.main_menu import schedule, reminders, main_menu
 from actions.registration import student_registration
-from functions.storage import MongodbService
 from functions.logger import logger
-from tools.keyboards import *
-
-from flask import Flask, request
-
+from functions.storage import MongodbService
 from tools import statistics
+from tools.keyboards import *
 
 TOKEN = os.environ.get('TOKEN')
 HOST_URL = os.environ.get('HOST_URL')
