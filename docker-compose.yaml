@@ -7,7 +7,6 @@ services:
   tg_bot:
     build: bots/tg_bot/
     restart: always
-    container_name: tg_bot
     environment:
       - TOKEN=${TG_TOKEN} # токен telegram бота
       - HOST_URL=${HOST_URL} # URL сервера (если оставить HOST_URL пустымм, то бот запустится локально)
@@ -19,7 +18,6 @@ services:
   vk_bot:
     build: bots/vk_bot/
     restart: always
-    container_name: vk_bot
     environment:
       - VK=${VK_TOKEN} # токен telegram бота
       - MONGO_DB_ADDR=mongodb # адрес mongoDB
