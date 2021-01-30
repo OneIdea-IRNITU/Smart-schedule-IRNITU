@@ -66,7 +66,6 @@ services:
   getting_schedule:
     build: getting_schedule/
     restart: always
-    container_name: getting_schedule
     environment:
       - MONGO_DB_ADDR=mongodb # адрес mongoDB
       - MONGO_DB_PORT=27017 # порт mongoDB (default: 27017)
