@@ -1,4 +1,4 @@
-from vkbottle.bot import Message
+from datetime import datetime
 
 from functions.creating_schedule import full_schedule_in_str, full_schedule_in_str_prep, \
     get_one_day_schedule_in_str_prep, get_one_day_schedule_in_str, get_next_day_schedule_in_str, \
@@ -6,8 +6,7 @@ from functions.creating_schedule import full_schedule_in_str, full_schedule_in_s
 from functions.find_week import find_week
 from functions.near_lesson import get_near_lesson, get_now_lesson
 from tools import keyboards, statistics, schedule_processing
-
-from datetime import datetime
+from vkbottle.bot import Message
 
 
 async def get_schedule(ans: Message, storage, tz):
@@ -155,12 +154,12 @@ async def get_schedule(ans: Message, storage, tz):
                                      keyboard=keyboards.make_keyboard_start_menu())
                     return
                 now_lessons_str += '-------------------------------------------\n'
-                aud = near_lesson['aud']
-                if aud:
-                    aud = f'Аудитория: {aud}\n'
+
                 time = near_lesson['time']
                 info = near_lesson['info'].replace(",", "")
-                prep = near_lesson['prep']
+                prep = ', '.join(near_lesson['prep'])
+                aud = f'Аудитория: {", ".join(near_lesson["aud"])}\n' \
+                    if near_lesson["aud"] and near_lesson["aud"][0] else ''
 
                 now_lessons_str += f'{time}\n' \
                                    f'{aud}' \
@@ -175,10 +174,12 @@ async def get_schedule(ans: Message, storage, tz):
                     await ans.answer('Сейчас пары нет, можете отдохнуть)',
                                      keyboard=keyboards.make_keyboard_start_menu())
                     return
+
                 now_lessons_str += '-------------------------------------------\n'
-                aud = near_lesson['aud']
-                if aud:
-                    aud = f'Аудитория: {aud}\n'
+
+                aud = f'Аудитория: {", ".join(near_lesson["aud"])}\n' \
+                    if near_lesson["aud"] and near_lesson["aud"][0] else ''
+
                 time = near_lesson['time']
                 info = near_lesson['info'].replace(",", "")
                 groups = ', '.join(near_lesson['groups'])
@@ -225,13 +226,12 @@ async def get_schedule(ans: Message, storage, tz):
                     await ans.answer('Сегодня больше пар нет 😎', keyboard=keyboards.make_keyboard_start_menu())
                     return
                 near_lessons_str += '-------------------------------------------\n'
-                aud = near_lesson['aud']
-                if aud:
-                    aud = f'Аудитория: {aud}\n'
-                time = near_lesson['time']
 
+                time = near_lesson['time']
                 info = near_lesson['info'].replace(",", "")
-                prep = near_lesson['prep']
+                prep = ', '.join(near_lesson['prep'])
+                aud = f'Аудитория: {", ".join(near_lesson["aud"])}\n' \
+                    if near_lesson["aud"] and near_lesson["aud"][0] else ''
 
                 near_lessons_str += f'{time}\n' \
                                     f'{aud}' \
@@ -249,9 +249,10 @@ async def get_schedule(ans: Message, storage, tz):
                     await ans.answer('Сегодня больше пар нет 😎', keyboard=keyboards.make_keyboard_start_menu())
                     return
                 near_lessons_str += '-------------------------------------------\n'
-                aud = near_lesson['aud']
-                if aud:
-                    aud = f'Аудитория: {aud}\n'
+
+                aud = f'Аудитория: {", ".join(near_lesson["aud"])}\n' \
+                    if near_lesson["aud"] and near_lesson["aud"][0] else ''
+
                 time = near_lesson['time']
                 info = near_lesson['info'].replace(",", "")
                 groups = ', '.join(near_lesson['groups'])
