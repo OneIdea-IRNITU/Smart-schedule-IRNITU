@@ -40,6 +40,7 @@ async def start_student_reg(ans: Message, storage, tz):
     message = ans.text
     user = storage.get_vk_user(chat_id)
 
+
     # Сохраняет в месседж полное название универ для корректного сравнения
     institutes = name_institutes(storage.get_institutes())
     for institute in institutes:
@@ -51,7 +52,7 @@ async def start_student_reg(ans: Message, storage, tz):
     if not user:
         institutes = name_institutes(storage.get_institutes())
         # Смотрим выбрал ли пользователь институт
-        if message_inst in institutes:
+        if message_inst in institutes and ans.payload:
             # Если да, то записываем в бд
             storage.save_or_update_vk_user(chat_id=chat_id, institute=message_inst)
             await ans.answer(f'Вы выбрали: {message_inst}\n')
@@ -120,7 +121,11 @@ async def start_student_reg(ans: Message, storage, tz):
     elif 'Далее' in message:
         await ans.answer('Далее', keyboard=keyboards.make_keyboard_choose_group_vk_page_2())
 
-
+    elif user:
+        await ans.answer('Такому ещё не научили 😇, знаю только эти команды:\n'
+                         'Авторы - список авторов \n'
+                         'Регистрация - повторная регистрация\n'
+                         'Карта - карта университета', keyboard=keyboards.make_keyboard_start_menu())
     else:
         await ans.answer('Такому ещё не научили 😇, знаю только эти команды:\n'
                          'Авторы - список авторов \n'
