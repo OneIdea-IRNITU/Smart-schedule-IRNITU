@@ -69,7 +69,7 @@ def sending_notifications(users: list):
                 lessons_for_reminders += '-------------------------------------------\n'
                 aud = lesson['aud']
                 if aud:
-                    aud = f'Аудитория: {aud}\n'
+                    aud = f'Аудитория: {",".join(aud)}\n'
                 time = lesson['time']
                 info = lesson['info']
                 prep = lesson['prep']
@@ -77,7 +77,7 @@ def sending_notifications(users: list):
                 lessons_for_reminders += f'<b>Начало в {time}</b>\n' \
                                          f'{aud}' \
                                          f'{name}\n' \
-                                         f'{info} {prep}\n'
+                                         f'{info} {",".join(prep)}\n'
                 lessons_for_reminders += '-------------------------------------------\n'
         # если пары не нашлись переходим к след user
         if not lessons_for_reminders:
@@ -128,7 +128,11 @@ def search_for_reminders():
                     notifications = reminder['notifications']
 
                     # определяем фактическое время пары (прибавляем к текущему времени время напоминания)
-                    lesson_time = (time_now + timedelta(minutes=notifications)).strftime('%-H:%-M')
+
+                    print(timedelta(minutes=notifications))
+                    print(time_now)
+                    lesson_time = (time_now + timedelta(minutes=notifications)).strftime('%H:%M')
+                    print(lesson_time)
 
                     users.append(
                         {'chat_id': chat_id,
