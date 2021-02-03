@@ -3,6 +3,7 @@ import os
 from threading import Thread
 
 import telebot
+import vk_api
 
 from reminder import Reminder
 from storage import MongodbService
@@ -15,9 +16,8 @@ storage = MongodbService().get_instance()
 tg_bot = telebot.TeleBot(TG_TOKEN)
 tg_reminder = Reminder(bot_platform='tg', bot=tg_bot, storage=storage)
 
-vk_bot = None
-# bot = Bot(f"{os.environ.get('VK')}")
-# authorize = vk_api.VkApi(token=TOKEN)
+
+vk_bot = vk_api.VkApi(token=VK_TOKEN)
 vk_reminder = Reminder(bot_platform='vk', bot=vk_bot, storage=storage)
 
 

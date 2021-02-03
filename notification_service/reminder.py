@@ -57,12 +57,15 @@ class Reminder:
 
             if self.platform == 'tg':
                 try:
-                    print(f'tg\n{text}')
                     self.bot.send_message(chat_id=chat_id, text=text)
                 except Exception as e:
                     logger.exception(e)
             elif self.platform == 'vk':
-                print(f'vk\n{text}')
+                try:
+                    self.bot.method('messages.send', {'user_id': chat_id, 'message': text, 'random_id': 0})
+                except Exception as e:
+                    logger.exception(e)
+
 
     def __check_platform(self):
         """Проверка, что работает для такой платформы"""
@@ -114,8 +117,6 @@ class Reminder:
 
                         user = tools.forming_user_to_submit(chat_id, group, notifications, day_now, time_now, week)
                         self.users.append(user)
-
-                        logger.info(f'Добавили пользователя в список для отправки уведомлений: {reminder}')
 
                 # после того как список сформирован, нужно отправить его боту
                 self.sending_notifications()

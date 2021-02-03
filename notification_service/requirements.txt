@@ -44,8 +44,7 @@ tomlkit==0.7.0
 urllib3==1.25.10
 vbml==0.5.93
 virtualenv==20.4.2
-vkbottle @ https://github.com/timoniq/vkbottle/archive/master.zip
-vkbottle-types==0.1.24
+vk-api==11.9.1
 watchgod==0.6
 webencodings==0.5.1
 win32-setctime==1.0.3
