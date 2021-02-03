@@ -42,3 +42,34 @@ def check_the_reminder_time(time_now, user_day_reminder_time: list) -> bool:
     minutes_now = time_now.strftime('%M')
 
     return user_day_reminder_time and f'{hours_now}:{minutes_now}' in user_day_reminder_time
+
+
+def forming_message_text(lessons, week, time):
+    """Формирование текста для сообщения"""
+    lessons_for_reminders = ''
+
+    for lesson in lessons:
+        lesson_time = lesson['time']
+        # находим нужные пары (в нужное время)
+        if time in lesson_time and (lesson['week'] == week or lesson['week'] == 'all'):
+            name = lesson['name']
+            # пропускаем свободные дни
+            if name == 'свободно':
+                continue
+
+            # формируем сообщение
+            lessons_for_reminders += '-------------------------------------------\n'
+            aud = lesson['aud']
+            if aud:
+                aud = f'Аудитория: {",".join(aud)}\n'
+            time = lesson['time']
+            info = lesson['info']
+            prep = lesson['prep']
+
+            lessons_for_reminders += f'Начало в {time}\n' \
+                                     f'{aud}' \
+                                     f'{name}\n' \
+                                     f'{info} {",".join(prep)}\n'
+            lessons_for_reminders += '-------------------------------------------\n'
+
+    return lessons_for_reminders

@@ -57,6 +57,37 @@ class TestToolsMethods(unittest.TestCase):
 
         self.assertTrue(result)
 
+    def test_forming_message_text_emptyList(self):
+        input_value = {
+            'lessons': [],
+            'week': 'even'
+        }
+        expected = ''
+
+        result = tools.forming_message_text(**input_value)
+
+        self.assertEqual(result, expected)
+
+    def test_forming_message_text_emptyList(self):
+        input_value = {
+            'lessons': [
+                {'time': '10:00', 'week': 'odd', 'name': 'Криптографические методы защиты информации',
+                 'aud': ['Ж-313'], 'info': '( Лаб. раб. подгруппа 1 )', 'prep': ['Тюрнев Александр Сергеевич']}
+            ],
+            'week': 'odd',
+            'time': '10:00'
+        }
+        expected = '-------------------------------------------\n' \
+                   'Начало в 10:00\n' \
+                   'Аудитория: Ж-313\n' \
+                   'Криптографические методы защиты информации\n' \
+                   '( Лаб. раб. подгруппа 1 ) Тюрнев Александр Сергеевич\n' \
+                   '-------------------------------------------\n'
+
+        result = tools.forming_message_text(**input_value)
+
+        self.assertEqual(result, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
