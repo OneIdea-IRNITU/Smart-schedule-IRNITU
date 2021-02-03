@@ -1,7 +1,7 @@
 import locale
 import os
 import platform
-from datetime import datetime, timedelta
+from datetime import datetime
 
 import pytz
 # import vk_api
@@ -21,17 +21,6 @@ bot = Bot(f"{os.environ.get('VK')}")
 # authorize = vk_api.VkApi(token=TOKEN)
 
 storage = MongodbService().get_instance()
-
-
-def find_week():
-    """определение текущей недели"""
-    now = datetime.now()
-    sep = datetime(now.year if now.month >= 9 else now.year - 1, 9, 1)
-    d1 = sep - timedelta(days=sep.weekday())
-    d2 = now - timedelta(days=now.weekday())
-
-    parity = ((d2 - d1).days // 7) % 2
-    return 'odd' if parity else 'even'
 
 
 def sending_notifications(users: list):
@@ -112,9 +101,9 @@ def search_for_reminders():
             reminders = storage.get_users_with_reminders_vk()
 
             for reminder in reminders:
-                week = find_week()
+                week = tools.find_week()
 
-                if not 'reminders' in reminder.keys():
+                if 'reminders' not in reminder.keys():
                     continue
 
                 # если у пользователя пустой reminders то None
