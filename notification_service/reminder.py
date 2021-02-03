@@ -44,38 +44,19 @@ class Reminder:
                 if day['day'] == day_now:
                     lessons = day['lessons']
                     break
+
+
+
             # если не нашлось переходем к след user
             if not lessons:
                 continue
-            lessons_for_reminders = ''
 
             logger.info(f'Отправка сообщения пользователю. Notifications: {time}')
             logger.info(f'Занятия пользователя.  {lessons}')
 
-            for lesson in lessons:
-                lesson_time = lesson['time']
-                # находим нужные пары (в нужное время)
-                if time in lesson_time and (lesson['week'] == week or lesson['week'] == 'all'):
-                    name = lesson['name']
-                    # пропускаем свободные дни
-                    if name == 'свободно':
-                        continue
 
-                    logger.info(f'Занятие на отправку: {lesson}')
-                    # формируем сообщение
-                    lessons_for_reminders += '-------------------------------------------\n'
-                    aud = lesson['aud']
-                    if aud:
-                        aud = f'Аудитория: {",".join(aud)}\n'
-                    time = lesson['time']
-                    info = lesson['info']
-                    prep = lesson['prep']
+            lessons_for_reminders = tools.forming_message_text(lessons=lessons, week=week, time=time)
 
-                    lessons_for_reminders += f'<b>Начало в {time}</b>\n' \
-                                             f'{aud}' \
-                                             f'{name}\n' \
-                                             f'{info} {",".join(prep)}\n'
-                    lessons_for_reminders += '-------------------------------------------\n'
             # если пары не нашлись переходим к след user
             if not lessons_for_reminders:
                 continue
@@ -116,7 +97,10 @@ class Reminder:
                 self.users = []
 
                 # получаем пользователей у которых включены напоминания
-                reminders = self.storage.get_users_with_reminders_vk()
+                if self.platform == 'vk':
+                    reminders = self.storage.get_users_with_reminders_vk()
+                elif self.platform == 'tg':
+                    reminders = self.storage.get_users_with_reminders_tg()
 
                 for reminder in reminders:
                     week = tools.find_week()
