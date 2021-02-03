@@ -68,6 +68,7 @@ def forming_message_text(lessons, week, time):
     """Формирование текста для сообщения"""
     lessons_for_reminders = ''
 
+    count = 0
     for lesson in lessons:
         lesson_time = lesson['time']
         # находим нужные пары (в нужное время)
@@ -90,6 +91,9 @@ def forming_message_text(lessons, week, time):
                                      f'{aud}' \
                                      f'{name}\n' \
                                      f'{info} {",".join(prep)}\n'
-    lessons_for_reminders += '-------------------------------------------\n'
+            count += 1
+
+    if count > 0:
+        lessons_for_reminders += '-------------------------------------------\n'
 
     return lessons_for_reminders
