@@ -1,5 +1,7 @@
 from datetime import datetime, timedelta
 
+DEBUG = False
+
 
 def find_week():
     """Определение текущей недели"""
@@ -38,6 +40,8 @@ def forming_user_to_submit(
 
 def check_that_user_has_reminder_enabled_for_the_current_time(time_now, user_day_reminder_time: list) -> bool:
     """Проверка, что у пользователя включено  напоминание на текущее время"""
+    if DEBUG:
+        return True
     hours_now = int(time_now.strftime('%H'))
     minutes_now = time_now.strftime('%M')
 
@@ -55,6 +59,8 @@ def get_schedule_from_right_day(schedule, day_now) -> list:
 
 def check_that_the_lesson_has_the_right_time(time, lesson_time, lesson, week) -> bool:
     """Проверка, что урок имеет нужное время и неделю"""
+    if DEBUG:
+        return True
     return time in lesson_time and (lesson['week'] == week or lesson['week'] == 'all')
 
 
@@ -84,6 +90,6 @@ def forming_message_text(lessons, week, time):
                                      f'{aud}' \
                                      f'{name}\n' \
                                      f'{info} {",".join(prep)}\n'
-            lessons_for_reminders += '-------------------------------------------\n'
+    lessons_for_reminders += '-------------------------------------------\n'
 
     return lessons_for_reminders

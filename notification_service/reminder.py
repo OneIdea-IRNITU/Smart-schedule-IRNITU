@@ -57,11 +57,12 @@ class Reminder:
 
             if self.platform == 'tg':
                 try:
+                    print(f'tg\n{text}')
                     self.bot.send_message(chat_id=chat_id, text=text)
                 except Exception as e:
                     logger.exception(e)
             elif self.platform == 'vk':
-                pass
+                print(f'vk\n{text}')
 
     def __check_platform(self):
         """Проверка, что работает для такой платформы"""
