@@ -38,22 +38,12 @@ class Reminder:
 
             schedule = self.storage.get_schedule(group=group)['schedule']
 
-            lessons = None
-            for day in schedule:
-                # находим нужный день
-                if day['day'] == day_now:
-                    lessons = day['lessons']
-                    break
-
-
+            # Получение расписания из нужного дня.
+            lessons = tools.get_schedule_from_right_day(schedule=schedule, day_now=day_now)
 
             # если не нашлось переходем к след user
             if not lessons:
                 continue
-
-            logger.info(f'Отправка сообщения пользователю. Notifications: {time}')
-            logger.info(f'Занятия пользователя.  {lessons}')
-
 
             lessons_for_reminders = tools.forming_message_text(lessons=lessons, week=week, time=time)
 

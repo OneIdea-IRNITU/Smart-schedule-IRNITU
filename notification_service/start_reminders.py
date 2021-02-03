@@ -1,12 +1,11 @@
 """Запуск напоминаний от вк и tg в двух потоках"""
+import os
 from threading import Thread
 
 import telebot
 
 from reminder import Reminder
 from storage import MongodbService
-
-import os
 
 TG_TOKEN = os.environ.get('TOKEN')
 
@@ -20,7 +19,6 @@ vk_bot = None
 # authorize = vk_api.VkApi(token=TOKEN)
 vk_reminder = Reminder(bot_platform='vk', bot=vk_bot, storage=storage)
 
-print(storage.get_schedule(group='ИБб-18-1')['schedule'][0]['lessons'])
 
 def main():
     tg = Thread(target=tg_reminder.search_for_reminders)

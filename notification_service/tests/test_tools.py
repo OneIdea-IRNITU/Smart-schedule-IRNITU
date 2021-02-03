@@ -89,6 +89,35 @@ class TestToolsMethods(unittest.TestCase):
 
         self.assertEqual(result, expected)
 
+    def test_get_schedule_from_right_day(self):
+        input_value = {
+            'schedule': [
+                {'day': 'понедельник', 'lessons': ['lessons_1']},
+                {'day': 'среда', 'lessons': ['lessons_2']},
+                {'day': 'четверг', 'lessons': ['lessons_3']}
+            ],
+            'day_now': 'среда',
+        }
+        expected = ['lessons_2']
+
+        result = tools.get_schedule_from_right_day(**input_value)
+
+        self.assertEqual(result, expected)
+
+    def test_get_schedule_from_right_day_notRightDay(self):
+        input_value = {
+            'schedule': [
+                {'day': 'понедельник', 'lessons': ['lessons_1']},
+                {'day': 'среда', 'lessons': ['lessons_2']},
+                {'day': 'четверг', 'lessons': ['lessons_3']}
+            ],
+            'day_now': 'вторник',
+        }
+
+        result = tools.get_schedule_from_right_day(**input_value)
+
+        self.assertIsNone(result)
+
 
 if __name__ == '__main__':
     unittest.main()

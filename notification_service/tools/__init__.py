@@ -44,6 +44,15 @@ def check_the_reminder_time(time_now, user_day_reminder_time: list) -> bool:
     return user_day_reminder_time and f'{hours_now}:{minutes_now}' in user_day_reminder_time
 
 
+def get_schedule_from_right_day(schedule, day_now) -> list:
+    """Получение расписания из нужного дня"""
+    for day in schedule:
+        # находим нужный день
+        if day['day'] == day_now:
+            lessons = day['lessons']
+            return lessons
+
+
 def forming_message_text(lessons, week, time):
     """Формирование текста для сообщения"""
     lessons_for_reminders = ''
