@@ -60,7 +60,8 @@ class TestToolsMethods(unittest.TestCase):
     def test_forming_message_text_emptyList(self):
         input_value = {
             'lessons': [],
-            'week': 'even'
+            'week': 'even',
+            'time': '10:00'
         }
         expected = ''
 
@@ -68,7 +69,7 @@ class TestToolsMethods(unittest.TestCase):
 
         self.assertEqual(result, expected)
 
-    def test_forming_message_text_emptyList(self):
+    def test_forming_message_text(self):
         input_value = {
             'lessons': [
                 {'time': '10:00', 'week': 'odd', 'name': 'Криптографические методы защиты информации',
