@@ -32,8 +32,8 @@ services:
     restart: always
     container_name: notification_service
     environment:
-      - TOKEN=${TG_TOKEN} # токен telegram бота
-      - VK=${VK_TOKEN} # токен VK бота
+      - TG_TOKEN=${TG_TOKEN} # токен telegram бота
+      - VK_TOKEN=${VK_TOKEN} # токен VK бота
       - MONGO_DB_ADDR=mongodb # адрес mongoDB
       - MONGO_DB_PORT=27017 # порт mongoDB
       - MONGO_DB_DATABASE=Smart_schedule_IRNITU # название базы данных

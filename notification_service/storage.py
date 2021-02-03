@@ -30,7 +30,7 @@ class MongodbService(object):
         """сохраняет документ в указанную коллекцию"""
         return self._db[collection].insert_one(data)
 
-    def get_users_with_reminders(self):
+    def get_users_with_reminders_tg(self):
         return list(self._db.users.find(filter={'reminders': {'$ne': []}}))
 
     def get_users_with_reminders_vk(self):
