@@ -53,6 +53,11 @@ def get_schedule_from_right_day(schedule, day_now) -> list:
             return lessons
 
 
+def check_that_the_lesson_has_the_right_time(time, lesson_time, lesson, week) -> bool:
+    """Проверка, что урок имеет нужное время и неделю"""
+    return time in lesson_time and (lesson['week'] == week or lesson['week'] == 'all')
+
+
 def forming_message_text(lessons, week, time):
     """Формирование текста для сообщения"""
     lessons_for_reminders = ''
@@ -60,7 +65,7 @@ def forming_message_text(lessons, week, time):
     for lesson in lessons:
         lesson_time = lesson['time']
         # находим нужные пары (в нужное время)
-        if time in lesson_time and (lesson['week'] == week or lesson['week'] == 'all'):
+        if check_that_the_lesson_has_the_right_time(time, lesson_time, lesson, week):
             name = lesson['name']
             # пропускаем свободные дни
             if name == 'свободно':
