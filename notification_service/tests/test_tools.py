@@ -27,33 +27,33 @@ class TestToolsMethods(unittest.TestCase):
 
         self.assertEqual(result, expected)
 
-    def test_check_the_reminder_time_notTheTime_False(self):
+    def test_check_that_user_has_reminder_enabled_for_the_current_time_notTheTime_False(self):
         input_value = {
             'time_now': datetime(hour=14, minute=30, year=2021, month=2, day=3),
             'user_day_reminder_time': ['14:40']
         }
 
-        result = tools.check_the_reminder_time(**input_value)
+        result = tools.check_that_user_has_reminder_enabled_for_the_current_time(**input_value)
 
         self.assertFalse(result)
 
-    def test_check_the_reminder_time_emptyList_False(self):
+    def test_check_that_user_has_reminder_enabled_for_the_current_time_emptyList_False(self):
         input_value = {
             'time_now': datetime(hour=14, minute=30, year=2021, month=2, day=3),
             'user_day_reminder_time': []
         }
 
-        result = tools.check_the_reminder_time(**input_value)
+        result = tools.check_that_user_has_reminder_enabled_for_the_current_time(**input_value)
 
         self.assertFalse(result)
 
-    def test_check_the_reminder_time_True(self):
+    def test_check_that_user_has_reminder_enabled_for_the_current_time_True(self):
         input_value = {
             'time_now': datetime(hour=14, minute=50, year=2021, month=2, day=3),
             'user_day_reminder_time': ['14:50']
         }
 
-        result = tools.check_the_reminder_time(**input_value)
+        result = tools.check_that_user_has_reminder_enabled_for_the_current_time(**input_value)
 
         self.assertTrue(result)
 

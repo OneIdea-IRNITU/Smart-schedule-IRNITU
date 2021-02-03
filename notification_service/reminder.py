@@ -106,7 +106,7 @@ class Reminder:
                     user_day_reminder_time = user_days.get(day_now.lower())
 
                     # если время совпадает с текущим, добавляем в список на отправку
-                    if tools.check_the_reminder_time(time_now, user_day_reminder_time):
+                    if tools.check_that_user_has_reminder_enabled_for_the_current_time(time_now, user_day_reminder_time):
                         chat_id = reminder['chat_id']
                         group = reminder['group']
                         notifications = reminder['notifications']

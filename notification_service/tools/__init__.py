@@ -36,8 +36,8 @@ def forming_user_to_submit(
     return user
 
 
-def check_the_reminder_time(time_now, user_day_reminder_time: list) -> bool:
-    """Проверка, что у пользователя влючено напоминание на текущее время"""
+def check_that_user_has_reminder_enabled_for_the_current_time(time_now, user_day_reminder_time: list) -> bool:
+    """Проверка, что у пользователя включено  напоминание на текущее время"""
     hours_now = int(time_now.strftime('%H'))
     minutes_now = time_now.strftime('%M')
 
