@@ -101,7 +101,7 @@ def search_for_reminders():
         # определяем время сейчас
         time_now = datetime.now(TZ_IRKUTSK)
         day_now = datetime.now(TZ_IRKUTSK).strftime('%A').lower()
-        hours_now = int(time_now.strftime('%H'))
+
         minutes_now = time_now.strftime('%M')
 
         if minutes_old != minutes_now:
@@ -122,16 +122,15 @@ def search_for_reminders():
                 if not user_days:
                     continue
                 # если у пользователя нет ткущего дня, то None
-                user_day_time = user_days.get(day_now.lower())
+                user_day_reminder_time = user_days.get(day_now.lower())
 
-                # если время совпадает с текущим, добавляем в список на отправ
-                if user_day_time and f'{hours_now}:{minutes_now}' in user_day_time:
+                # если время совпадает с текущим, добавляем в список на отправку
+                if tools.check_the_reminder_time(time_now, user_day_reminder_time):
                     chat_id = reminder['chat_id']
                     group = reminder['group']
                     notifications = reminder['notifications']
 
                     user = tools.forming_user_to_submit(chat_id, group, notifications, day_now, time_now, week)
-
                     users.append(user)
 
                     logger.info(f'Добавили пользователя в список для отправки уведомлений: {reminder}')
