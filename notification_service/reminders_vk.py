@@ -1,23 +1,24 @@
-import pytz
 import locale
-import vk_api
 import os
-from datetime import datetime, timedelta
-from storage import MongodbService
-from vkbottle.bot import Bot, Message
-
-from logger import logger
-
 import platform
+from datetime import datetime, timedelta
+
+import pytz
+# import vk_api
+from vkbottle.bot import Bot
+
+import tools
+from logger import logger
+from storage import MongodbService
 
 TOKEN = os.environ.get('VK')
 TZ_IRKUTSK = pytz.timezone('Asia/Irkutsk')
 locale_name = ('ru_RU.UTF-8' if platform.system() == 'Linux' else 'ru_RU')
 locale.setlocale(locale.LC_TIME, locale_name)
 
-bot = Bot(f"{os.environ.get('VK')}", debug="DEBUG")
+bot = Bot(f"{os.environ.get('VK')}")
 
-authorize = vk_api.VkApi(token=TOKEN)
+# authorize = vk_api.VkApi(token=TOKEN)
 
 storage = MongodbService().get_instance()
 
@@ -87,7 +88,10 @@ def sending_notifications(users: list):
             continue
         # отправляем сообщение пользователю
         text = f'Через {notifications} минут пара\n', f'{lessons_for_reminders}'
-        authorize.method('messages.send', {'user_id': chat_id, 'message': text, 'random_id': 0})
+
+        # !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        # ОТПРАВКА СООБЩЕНИЯ ПОЛЬЗОВАТЕЛЮ
+        # authorize.method('messages.send', {'user_id': chat_id, 'message': text, 'random_id': 0})
 
 
 def search_for_reminders():
@@ -120,27 +124,15 @@ def search_for_reminders():
                 # если у пользователя нет ткущего дня, то None
                 user_day_time = user_days.get(day_now.lower())
 
-                logger.info(f'user_day_time: {user_day_time}')
-                logger.info(f'time_now {hours_now}:{minutes_now}')
-
                 # если время совпадает с текущим, добавляем в список на отправ
                 if user_day_time and f'{hours_now}:{minutes_now}' in user_day_time:
                     chat_id = reminder['chat_id']
                     group = reminder['group']
                     notifications = reminder['notifications']
 
-                    # определяем фактическое время пары (прибавляем к текущему времени время напоминания)
-                    lesson_time = (time_now + timedelta(minutes=notifications)).strftime('%-H:%-M')
+                    user = tools.forming_user_to_submit(chat_id, group, notifications, day_now, time_now, week)
 
-                    users.append(
-                        {'chat_id': chat_id,
-                         'group': group,
-                         'week': week,
-                         'day': day_now,
-                         'notifications': notifications,
-                         'time': lesson_time
-                         }
-                    )
+                    users.append(user)
 
                     logger.info(f'Добавили пользователя в список для отправки уведомлений: {reminder}')
 
