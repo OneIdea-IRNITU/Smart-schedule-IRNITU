@@ -36,7 +36,11 @@ class Reminder:
             group = user['group']
             notifications = user['notifications']
 
-            schedule = self.storage.get_schedule(group=group)['schedule']
+            try:
+                schedule = self.storage.get_schedule(group=group)['schedule']
+            except Exception as e:
+                logger.exception(f'Error (group: {group}):\n{e}')
+                continue
 
             # Получение расписания из нужного дня.
             lessons = tools.get_schedule_from_right_day(schedule=schedule, day_now=day_now)
@@ -59,12 +63,13 @@ class Reminder:
                 try:
                     self.bot.send_message(chat_id=chat_id, text=text)
                 except Exception as e:
-                    logger.exception(e)
+                    logger.exception(f'---TG---\n{e}')
             elif self.platform == 'vk':
                 try:
+                    logger.info(f'vk send user_id: {chat_id}')
                     self.bot.method('messages.send', {'user_id': chat_id, 'message': text, 'random_id': 0})
                 except Exception as e:
-                    logger.exception(e)
+                    logger.exception(f'---VK---\n{e}')
 
 
     def __check_platform(self):
