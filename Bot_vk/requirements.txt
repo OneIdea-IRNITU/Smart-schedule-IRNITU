@@ -14,7 +14,7 @@ pytz==2020.4
 requests==2.25.0
 six==1.15.0
 typing-extensions==3.7.4.3
-urllib3==1.26.2
+urllib3==1.26.3
 vbml==1.1
 vk-api==11.9.0
 vkbottle @ https://github.com/timoniq/vkbottle/archive/master.zip
