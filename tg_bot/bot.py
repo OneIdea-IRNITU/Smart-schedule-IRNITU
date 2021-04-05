@@ -612,10 +612,9 @@ def text(message):
 
 
 if __name__ == '__main__':
-    bot.skip_pending = True
     bot.remove_webhook()
     logger.info('Бот запущен локально')
-    bot.polling(none_stop=True, interval=0)
+    bot.infinity_polling()
 else:
     bot.remove_webhook()
     sleep(1)
