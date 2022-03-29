@@ -26,7 +26,7 @@ packaging==20.9
 pastel==0.2.1
 pexpect==4.8.0
 pkginfo==1.7.0
-poetry==1.1.4
+poetry==1.1.9
 poetry-core==1.0.0
 ptyprocess==0.7.0
 pydantic==1.6.2
