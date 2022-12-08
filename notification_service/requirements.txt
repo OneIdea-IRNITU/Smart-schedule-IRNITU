@@ -4,7 +4,7 @@ async-timeout==3.0.1
 attrs==20.2.0
 CacheControl==0.12.6
 cachy==0.3.0
-certifi==2020.6.20
+certifi==2022.12.7
 chardet==3.0.4
 choicelib==0.1.4
 cleo==0.8.1
